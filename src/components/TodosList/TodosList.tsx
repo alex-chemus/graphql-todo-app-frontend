@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "../../__generated__";
 import React, { useEffect, useState } from "react";
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem/TodoItem";
 
 const TODOS_QUERY = gql(`
   query Todos($folderId: Int!) {

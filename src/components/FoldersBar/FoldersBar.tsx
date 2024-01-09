@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { gql } from "../../__generated__";
 import { useMutation, useQuery } from "@apollo/client";
 
-const FoldersQueryDocument = gql(`
+const FOLDERS_QUERY = gql(`
   query Folders {
     folders {
       id
@@ -12,7 +12,7 @@ const FoldersQueryDocument = gql(`
   }
 `);
 
-const AddFolderMutationDocument = gql(`
+const ADD_FOLDER_MUTATION = gql(`
   mutation AddFolder($addFolderInput: AddFolderInput!) {
     addFolder(addFolderInput: $addFolderInput) {
       id
@@ -27,12 +27,12 @@ type Props = {
 };
 
 export default function FoldersBar({ onChange, currentFolder }: Props) {
-  const { data, refetch } = useQuery(FoldersQueryDocument);
+  const { data, refetch } = useQuery(FOLDERS_QUERY);
 
   const [isEditing, setIsEditing] = useState(false);
   const [newFolderTitle, setNewFolderTitle] = useState<string>("");
 
-  const [addTodoMutation] = useMutation(AddFolderMutationDocument, {
+  const [addTodoMutation] = useMutation(ADD_FOLDER_MUTATION, {
     variables: { addFolderInput: { title: newFolderTitle } },
   });
 
@@ -61,7 +61,11 @@ export default function FoldersBar({ onChange, currentFolder }: Props) {
             <button
               onClick={() => onChange?.(Number(folder.id))}
               key={folder.id}
-              className="h-12 rounded-xl bg-blue-100 pl-[10%] text-left transition hover:bg-blue-500 hover:text-white"
+              className={`h-12 rounded-xl pl-[10%] text-left transition ${
+                currentFolder === Number(folder.id)
+                  ? "bg-blue-500 text-white"
+                  : "bg-blue-100 hover:bg-blue-500 hover:text-white"
+              }`}
             >
               {folder.title}
             </button>

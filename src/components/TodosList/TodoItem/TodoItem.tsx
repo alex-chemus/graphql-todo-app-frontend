@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Todo } from "../../__generated__/graphql";
-import { gql } from "../../__generated__";
+import { Todo } from "../../../__generated__/graphql";
+import { gql } from "../../../__generated__";
 import { useMutation } from "@apollo/client";
+import StatusBadge from "./StatusBadge";
 
-enum Status {
+export enum Status {
   planned = "Planned",
   active = "Active",
   done = "Done",
 }
 
-enum StatusId {
+export enum StatusId {
   "Planned" = 1,
   "Active" = 2,
   "Done" = 3,
@@ -22,39 +23,6 @@ const CHANGE_TODO_STATUS_MUTATION = gql(`
     }
   }
 `);
-
-type StatusBadgeProps = { status: Status; onClick?: () => void };
-
-const StatusBadge = ({ status, onClick }: StatusBadgeProps) => {
-  switch (status) {
-    case Status.planned:
-      return (
-        <div onClick={onClick} className="w-fit rounded-md bg-yellow-500 px-1">
-          {status}
-        </div>
-      );
-    case Status.active:
-      return (
-        <div
-          onClick={onClick}
-          className="w-fit rounded-md bg-blue-500 px-1 text-white"
-        >
-          {status}
-        </div>
-      );
-    case Status.done:
-      return (
-        <div
-          onClick={onClick}
-          className="w-fit rounded-md bg-green-500 px-1 text-white"
-        >
-          {status}
-        </div>
-      );
-    default:
-      return null;
-  }
-};
 
 type TodoItemProps = {
   refresh?: () => void; // will be called when todo is updated

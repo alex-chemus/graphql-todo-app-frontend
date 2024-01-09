@@ -9,8 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prettier": "npx prettier . --write",
-    "gql:codegen": "graphql-codegen --config ./codegen.ts",
-    "gql:watch": "graphql-codegen -w"
+    "gql:codegen": "graphql-codegen --config ./codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
